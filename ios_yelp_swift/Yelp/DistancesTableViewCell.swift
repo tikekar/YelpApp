@@ -14,10 +14,15 @@ class DistancesTableViewCell: UITableViewCell {
     
     @IBOutlet weak var selectionLabel: UILabel!
     
+    var meterValue : String = ""
+    
     var distanceObject : Dictionary<String, String> = [:] {
         didSet {
-            let lazyMapCollection = distanceObject.keys
-            distanceLabel.text = Array(lazyMapCollection)[0]
+            let keys_ = distanceObject.keys
+            let key_ = Array(keys_)[0]
+            distanceLabel.text = key_
+            meterValue = distanceObject[key_]!
+            
             selectionLabel.text = ""
             selectionLabel.layer.borderWidth = 1
             selectionLabel.layer.borderColor = UIColor.lightGray.cgColor
@@ -25,7 +30,6 @@ class DistancesTableViewCell: UITableViewCell {
         }
     }
     
-        
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionLabel.layer.cornerRadius = selectionLabel.frame.size.width/2

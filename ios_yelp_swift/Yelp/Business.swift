@@ -8,6 +8,11 @@
 
 import UIKit
 
+let CATEGORY_FILTER = "category_filter"
+let DISTANCE_FILTER = "radius_filter"
+let SORT_FILTER = "sort"
+
+
 class Business: NSObject {
     let name: String?
     let address: String?
@@ -16,6 +21,7 @@ class Business: NSObject {
     let distance: String?
     let ratingImageURL: URL?
     let reviewCount: NSNumber?
+    
     
     init(dictionary: NSDictionary) {
         name = dictionary["name"] as? String

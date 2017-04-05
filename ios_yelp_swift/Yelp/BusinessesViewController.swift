@@ -18,6 +18,8 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     var searchBar: UISearchBar!
     
+    var filterParameters: NSMutableDictionary = [:]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         // Add SearchBar to the NavigationBar
         searchBar.sizeToFit()
         navigationItem.titleView = searchBar
-        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -67,14 +68,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                     print(business.address!)
                 }
             }
-            
-        }
-        )
+        })
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // When movie view is empty, then show the empty view.
-        // It will show the error from the server call if that is the reason for the empty movie set.
         if businesses != nil {
             return businesses.count
         }
@@ -109,6 +106,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         loadRestaurants()
         
+    }
+    
+    func applyFilterParameters(_ filterParameters: NSDictionary) {
+    
     }
     
     override func didReceiveMemoryWarning() {

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol FilterDelegate: class {
+    func applyFilterParameters(_ filterParameters: NSDictionary)
+}
+
 class FilterTableViewController: UITableViewController {
     
     var distances: [Dictionary<String, String>] = []
@@ -15,6 +19,8 @@ class FilterTableViewController: UITableViewController {
     var filterParameters: NSMutableDictionary = [:]
     
     var isDistancesOpen: Bool!
+    
+    var delegate: FilterDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +30,6 @@ class FilterTableViewController: UITableViewController {
         
         
         tableView.register(UINib(nibName: "FilterTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "FilterTableHeaderView")
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
 
     // MARK: - Table view data source
@@ -62,8 +64,8 @@ class FilterTableViewController: UITableViewController {
                 cell.selectionLabel.layer.borderWidth = 0
             }
             else {
-                if let key_ = filterParameters.object(forKey: "distance") {
-                    if cell.distanceLabel.text == key_ as? String {
+                if let meterValue = filterParameters.object(forKey: DISTANCE_FILTER) as? String {
+                    if cell.meterValue == meterValue {
                         cell.selectionLabel.text = "✔︎"
                         cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
                         cell.selectionLabel.textColor = UIColor.cyan
@@ -80,8 +82,8 @@ class FilterTableViewController: UITableViewController {
         }
         else {
             if isDistancesOpen == true {
-                let lazyMapCollection = distances[indexPath.row].keys
-                filterParameters.setDictionary(["distance" : Array(lazyMapCollection)[0]])
+                let meterValues_ = distances[indexPath.row].values
+                filterParameters.setValue(Array(meterValues_)[0], forKey: DISTANCE_FILTER)
             }
             isDistancesOpen = !isDistancesOpen
             tableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableViewRowAnimation.automatic)
@@ -97,6 +99,10 @@ class FilterTableViewController: UITableViewController {
         }
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -108,3 +114,4 @@ class FilterTableViewController: UITableViewController {
     */
 
 }
+
