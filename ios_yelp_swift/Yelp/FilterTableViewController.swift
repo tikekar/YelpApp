@@ -10,16 +10,22 @@ import UIKit
 
 class FilterTableViewController: UITableViewController {
     
+    var distances: [String]!
+    
+    var isDistancesOpen: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        distances = ["Auto", "5 Miles", "10 Miles", "20 Miles"]
+        isDistancesOpen = false
+        
         
         tableView.register(UINib(nibName: "FilterTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "FilterTableHeaderView")
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
@@ -31,20 +37,45 @@ class FilterTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 { return 1 }
-        return 0
+        if isDistancesOpen == true {
+            return distances.count
+        }
+        else {
+            return 1
+        }
+        
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath)
+        if indexPath.section == 0 {
+        
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath)
 
-        // Configure the cell...
+            // Configure the cell...
 
-        return cell
+            return cell
+        }
+        else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
+            
+            // Configure the cell...
+            
+            return cell
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            super.tableView(tableView, didSelectRowAt: indexPath)
+        }
+        else {
+            isDistancesOpen = !isDistancesOpen
+            tableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableViewRowAnimation.automatic)
+        }
     }
     
     //https://www.ioscreator.com/tutorials/customizing-header-footer-table-view-ios8-swift
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    /*override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             return super.tableView(tableView, viewForHeaderInSection: section)
             
@@ -58,7 +89,7 @@ class FilterTableViewController: UITableViewController {
             return super.tableView(tableView, heightForHeaderInSection: section)
         }
         return 90
-    }
+    }*/
     
 
     /*
