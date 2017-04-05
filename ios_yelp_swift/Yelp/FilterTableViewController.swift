@@ -10,14 +10,16 @@ import UIKit
 
 class FilterTableViewController: UITableViewController {
     
-    var distances: [String]!
+    var distances: [Dictionary<String, String>] = []
+    
+    var filterParameters: NSMutableDictionary = [:]
     
     var isDistancesOpen: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        distances = ["Auto", "5 Miles", "10 Miles", "20 Miles"]
+        distances = [["Auto" : "auto"], ["0.3 Mile" : "482"], ["1 Mile": "1609"], ["5 Miles" : "8046"], ["20 Miles" : "32186"]]
         isDistancesOpen = false
         
         
@@ -43,23 +45,31 @@ class FilterTableViewController: UITableViewController {
         else {
             return 1
         }
-        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
         
-            let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath)
-
-            // Configure the cell...
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath) as! OfferingDealTableViewCell
 
             return cell
         }
         else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath)
-            
-            // Configure the cell...
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath) as! DistancesTableViewCell
+            cell.distanceObject = distances[indexPath.row]
+            if isDistancesOpen == false && indexPath.row == 0 {
+                cell.selectionLabel.text = "▼"
+                cell.selectionLabel.layer.borderWidth = 0
+            }
+            else {
+                if let key_ = filterParameters.object(forKey: "distance") {
+                    if cell.distanceLabel.text == key_ as? String {
+                        cell.selectionLabel.text = "✔︎"
+                        cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
+                        cell.selectionLabel.textColor = UIColor.cyan
+                    }
+                }
+            }
             return cell
         }
     }
@@ -69,64 +79,24 @@ class FilterTableViewController: UITableViewController {
             super.tableView(tableView, didSelectRowAt: indexPath)
         }
         else {
+            if isDistancesOpen == true {
+                let lazyMapCollection = distances[indexPath.row].keys
+                filterParameters.setDictionary(["distance" : Array(lazyMapCollection)[0]])
+            }
             isDistancesOpen = !isDistancesOpen
             tableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableViewRowAnimation.automatic)
         }
     }
     
-    //https://www.ioscreator.com/tutorials/customizing-header-footer-table-view-ios8-swift
-    /*override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return super.tableView(tableView, viewForHeaderInSection: section)
-            
+            return super.tableView(tableView, titleForHeaderInSection: section)
         }
-        let  headerCell = tableView.dequeueReusableCell(withIdentifier: "DistanceHeaderCell") as! OfferingDealTableViewCell
-        return headerCell
+        else {
+            return "Distance"
+        }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return super.tableView(tableView, heightForHeaderInSection: section)
-        }
-        return 90
-    }*/
-    
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
     /*
     // MARK: - Navigation
 

@@ -67,6 +67,10 @@ class YelpClient: BDBOAuth1RequestOperationManager {
         
         print(parameters)
         
+        return searchWithParameters(parameters, completion: completion)
+    }
+    
+    func searchWithParameters(_ parameters: Dictionary<String, Any>, completion: @escaping ([Business]?, Error?) -> Void) -> AFHTTPRequestOperation  {
         return self.get("search", parameters: parameters,
                         success: { (operation: AFHTTPRequestOperation, response: Any) -> Void in
                             if let response = response as? [String: Any]{
@@ -75,9 +79,9 @@ class YelpClient: BDBOAuth1RequestOperationManager {
                                     completion(Business.businesses(array: dictionaries!), nil)
                                 }
                             }
-                        },
+        },
                         failure: { (operation: AFHTTPRequestOperation?, error: Error) -> Void in
                             completion(nil, error)
-                        })!
+        })!
     }
 }

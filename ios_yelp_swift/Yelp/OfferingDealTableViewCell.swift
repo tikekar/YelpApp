@@ -11,12 +11,8 @@ import UIKit
 class OfferingDealTableViewCell: UITableViewCell {
 
     
-    @IBOutlet weak var borderView: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        borderView.layer.borderColor = UIColor.lightGray.cgColor
-        borderView.layer.borderWidth = 1.0
-        borderView.layer.cornerRadius = 3
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

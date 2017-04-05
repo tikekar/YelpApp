@@ -10,10 +10,27 @@ import UIKit
 
 class DistancesTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var distanceLabel: UILabel!
+    
+    @IBOutlet weak var selectionLabel: UILabel!
+    
+    var distanceObject : Dictionary<String, String> = [:] {
+        didSet {
+            let lazyMapCollection = distanceObject.keys
+            distanceLabel.text = Array(lazyMapCollection)[0]
+            selectionLabel.text = ""
+            selectionLabel.layer.borderWidth = 1
+            selectionLabel.layer.borderColor = UIColor.lightGray.cgColor
+            selectionLabel.textColor = UIColor.darkGray
+        }
+    }
+    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        selectionLabel.layer.cornerRadius = selectionLabel.frame.size.width/2
     }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
