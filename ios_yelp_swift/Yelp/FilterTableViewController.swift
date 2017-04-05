@@ -9,14 +9,14 @@
 import UIKit
 
 protocol FilterDelegate: class {
-    func applyFilterParameters(_ filterParameters: NSDictionary)
+    func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>)
 }
 
-class FilterTableViewController: UITableViewController {
+class FilterTableViewController: UITableViewController, OfferingDealDelegate {
     
     var distances: [Dictionary<String, String>] = []
     
-    var filterParameters: NSMutableDictionary = [:]
+    var filterParameters: Dictionary<String, String> = [:]
     
     var isDistancesOpen: Bool!
     
@@ -28,14 +28,12 @@ class FilterTableViewController: UITableViewController {
         distances = [["Auto" : "auto"], ["0.3 Mile" : "482"], ["1 Mile": "1609"], ["5 Miles" : "8046"], ["20 Miles" : "32186"]]
         isDistancesOpen = false
         
-        
         tableView.register(UINib(nibName: "FilterTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "FilterTableHeaderView")
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 2
     }
 
@@ -53,7 +51,13 @@ class FilterTableViewController: UITableViewController {
         if indexPath.section == 0 {
         
             let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath) as! OfferingDealTableViewCell
-
+            cell.delegate = self
+            if filterParameters[DEAL_FILTER] != nil {
+                cell.dealSwitch.setOn(true, animated: true)
+            }
+            else {
+                cell.dealSwitch.setOn(false, animated: true)
+            }
             return cell
         }
         else {
@@ -64,7 +68,7 @@ class FilterTableViewController: UITableViewController {
                 cell.selectionLabel.layer.borderWidth = 0
             }
             else {
-                if let meterValue = filterParameters.object(forKey: DISTANCE_FILTER) as? String {
+                if let meterValue = filterParameters[DISTANCE_FILTER] {
                     if cell.meterValue == meterValue {
                         cell.selectionLabel.text = "✔︎"
                         cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
@@ -83,7 +87,7 @@ class FilterTableViewController: UITableViewController {
         else {
             if isDistancesOpen == true {
                 let meterValues_ = distances[indexPath.row].values
-                filterParameters.setValue(Array(meterValues_)[0], forKey: DISTANCE_FILTER)
+                filterParameters[DISTANCE_FILTER] = Array(meterValues_)[0]
             }
             isDistancesOpen = !isDistancesOpen
             tableView.reloadSections(NSIndexSet(index: 1) as IndexSet, with: UITableViewRowAnimation.automatic)
@@ -99,19 +103,29 @@ class FilterTableViewController: UITableViewController {
         }
     }
     
+    @IBAction func onCancelClick(_ sender: Any) {
+        dismiss(animated: true) {}
+    }
+    
+    
+    @IBAction func onSearchClick(_ sender: Any) {
+        delegate?.applyFilterParameters(filterParameters)
+        dismiss(animated: true) {}
+    }
+    
+    func isSwitchOn(flag : Bool) {
+        if flag == true {
+            filterParameters[DEAL_FILTER] = "yes"
+        }
+        else {
+            filterParameters.removeValue(forKey: DEAL_FILTER)
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }
 

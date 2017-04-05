@@ -10,7 +10,7 @@ import UIKit
 import SVProgressHUD
 
 
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterDelegate {
     
     var businesses: [Business]!
     
@@ -18,7 +18,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var tableView: UITableView!
     var searchBar: UISearchBar!
     
-    var filterParameters: NSMutableDictionary = [:]
+    var filterParameters: Dictionary<String, String> = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +53,12 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func loadRestaurants() {
         
-        var searchFor: String = "Restaurants"
+        filterParameters[TERM_FILTER] = "Restaurants"
         if searchBar.text?.isEmpty == false {
-            searchFor = searchBar.text!
+            filterParameters[TERM_FILTER] = searchBar.text!
         }
         SVProgressHUD.show()
-        Business.searchWithTerm(term: searchFor, completion: { (businesses: [Business]?, error: Error?) -> Void in
+        Business.searchWithParameters(parameters: filterParameters, completion: { (businesses: [Business]?, error: Error?) -> Void in
             SVProgressHUD.dismiss()
             self.businesses = businesses
             self.tableView.reloadData()
@@ -108,8 +108,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    func applyFilterParameters(_ filterParameters: NSDictionary) {
-    
+    func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>) {
+        filterParameters = aFilterParameters
+        loadRestaurants()
     }
     
     override func didReceiveMemoryWarning() {
@@ -117,15 +118,16 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     
+    // MARK: - Navigation
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "Show Filter View") {
+            if let viewController = segue.destination as? UINavigationController {
+                let filterVC_ = viewController.childViewControllers[0] as! FilterTableViewController
+                filterVC_.delegate = self
+                filterVC_.filterParameters = filterParameters
+            }
+        }
+    }
 }

@@ -8,13 +8,23 @@
 
 import UIKit
 
+protocol OfferingDealDelegate: class {
+    func isSwitchOn(flag : Bool)
+}
+
 class OfferingDealTableViewCell: UITableViewCell {
 
+    var delegate: OfferingDealDelegate?
     
+    @IBOutlet weak var dealSwitch: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
+    @IBAction func onSwitchValueChanged(_ sender: Any) {
+        delegate?.isSwitchOn(flag: dealSwitch.isOn)
+    }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

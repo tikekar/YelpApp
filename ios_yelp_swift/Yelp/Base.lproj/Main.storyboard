@@ -132,7 +132,7 @@
                         <barButtonItem key="leftBarButtonItem" title="Filter" id="qtY-3R-guO">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="UNV-YD-Bp4" kind="show" identifier="Show Filter View" id="rYs-Ez-5qx"/>
+                                <segue destination="EhI-Oz-bcK" kind="presentation" identifier="Show Filter View" id="rYs-Ez-5qx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -145,7 +145,7 @@
             </objects>
             <point key="canvasLocation" x="2727.1999999999998" y="357.57121439280365"/>
         </scene>
-        <!--Filter Table View Controller-->
+        <!--Filter-->
         <scene sceneID="tIY-c6-GvN">
             <objects>
                 <tableViewController id="UNV-YD-Bp4" customClass="FilterTableViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
@@ -164,6 +164,9 @@
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eez-sn-dSg">
                                             <rect key="frame" x="303" y="14" width="51" height="31"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="onSwitchValueChanged:" destination="uqD-9Q-xcV" eventType="valueChanged" id="dDe-2U-mPE"/>
+                                            </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Offering a Deal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yW-mz-ucB">
                                             <rect key="frame" x="15" y="18" width="128" height="23"/>
@@ -174,6 +177,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="dealSwitch" destination="Eez-sn-dSg" id="QLI-od-7wi"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistanceCell" rowHeight="60" id="mn8-X0-RIT" customClass="DistancesTableViewCell" customModule="Yelp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="116" width="375" height="60"/>
@@ -216,10 +222,22 @@
                             <outlet property="delegate" destination="UNV-YD-Bp4" id="OBn-de-rsW"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Filter" id="sdr-WK-BAo">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Jwd-JX-3kC">
+                            <connections>
+                                <action selector="onCancelClick:" destination="UNV-YD-Bp4" id="YsN-HT-86t"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Search" id="KXE-JQ-VIc">
+                            <connections>
+                                <action selector="onSearchClick:" destination="UNV-YD-Bp4" id="bWv-WJ-1WE"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFR-WN-a5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3655" y="358"/>
+            <point key="canvasLocation" x="4592.8000000000002" y="357.57121439280365"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NPN-f5-1jr">
@@ -238,6 +256,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c6V-aC-7kq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1788" y="357.57121439280365"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="TT6-ri-Qzz">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="EhI-Oz-bcK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3Nd-kA-r6n">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="UNV-YD-Bp4" kind="relationship" relationship="rootViewController" id="Mos-lt-ehL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JAB-WS-SLD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3653.5999999999999" y="357.57121439280365"/>
         </scene>
     </scenes>
 </document>

@@ -10,7 +10,9 @@ import UIKit
 
 let CATEGORY_FILTER = "category_filter"
 let DISTANCE_FILTER = "radius_filter"
+let DEAL_FILTER = "radius_filter"
 let SORT_FILTER = "sort"
+let TERM_FILTER = "term"
 
 
 class Business: NSObject {
@@ -99,6 +101,12 @@ class Business: NSObject {
     }
     
     class func searchWithParameters(parameters: Dictionary<String, Any>, completion: @escaping ([Business]?, Error?) -> Void) -> Void {
-        _ = YelpClient.sharedInstance.searchWithParameters(parameters, completion: completion)
+        // Need this because parameters is a let kind and cannot be modified
+        var modifiableParameters : Dictionary = parameters
+        if modifiableParameters["ll"] == nil {
+            modifiableParameters["ll"] = "37.785771,-122.406165" as AnyObject?
+        }
+
+        _ = YelpClient.sharedInstance.searchWithParameters(modifiableParameters, completion: completion)
     }
 }
