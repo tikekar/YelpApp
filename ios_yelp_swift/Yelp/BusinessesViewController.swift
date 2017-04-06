@@ -66,6 +66,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func loadRestaurants() {
         
+        // TODO: Directly use FilterHelper's filterParameters
         filterParameters[TERM_FILTER] = "Restaurants"
         if searchBar.text?.isEmpty == false {
             filterParameters[TERM_FILTER] = searchBar.text!

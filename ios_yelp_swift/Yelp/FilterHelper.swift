@@ -10,18 +10,18 @@ import UIKit
 
 let CATEGORY_FILTER = "category_filter"
 let DISTANCE_FILTER = "radius_filter"
-let DEAL_FILTER = "radius_filter"
+let DEAL_FILTER = "deals_filter"
 let SORT_FILTER = "sort"
-
 
 
 class FilterHelper: NSObject {
     
+    // Filter Parameters set/unset via FilterTableViewController
     static var filterParameters: Dictionary<String, String> = [:]
     
     static let filterCategories: [Dictionary<String, String>] = [["name" : "Afghan", "code": "afghani"],["name" : "African", "code": "african"],
-    ["name" : "American, New", "code": "newamerican"],
-    ["name" : "American, Traditional", "code": "tradamerican"],
+    ["name" : "American (New)", "code": "newamerican"],
+    ["name" : "American (Traditional)", "code": "tradamerican"],
     ["name" : "Arabian", "code": "arabian"],
     ["name" : "Argentine", "code": "argentine"],
     ["name" : "Armenian", "code": "armenian"],
@@ -245,10 +245,10 @@ class FilterHelper: NSObject {
     }
     
     class func getSelectedSortCriteria() -> Dictionary<String, String>?{
-        for i in 0...sortBy.count-1 {
+        for i in 0...filterSortBy.count-1 {
             if let meterValue = FilterHelper.filterParameters[SORT_FILTER] {
-                if sortBy[i]["code"] == meterValue {
-                    return sortBy[i]
+                if filterSortBy[i]["code"] == meterValue {
+                    return filterSortBy[i]
                 }
             }
         }
@@ -256,11 +256,10 @@ class FilterHelper: NSObject {
     }
     
     class func getSelectedDistance() -> Dictionary<String, String>?{
-        for i in 0...distances.count-1 {
+        for i in 0...filterDistances.count-1 {
             if let meterValue = FilterHelper.filterParameters[DISTANCE_FILTER] {
-                if distances[i]["code"] == meterValue {
-                    cell.distanceObject = distances[i]
-                    break
+                if filterDistances[i]["code"] == meterValue {
+                    return filterDistances[i]
                 }
             }
         }
