@@ -19,26 +19,17 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     var searchBar: UISearchBar!
     
     var filterParameters: Dictionary<String, String> = [:]
+    var currentOffset: Int! = 0
+    let refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Initialize the UISearchBar
-        searchBar = UISearchBar()
-        searchBar.delegate = self
-        
-        // Add SearchBar to the NavigationBar
-        searchBar.sizeToFit()
-        navigationItem.titleView = searchBar
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
-        tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissMode.onDrag
-        
+        initializeSearchBar()
+        initializeTableView()
         
         loadRestaurants()
+        
         /* Example of Yelp search with more search options specified
          Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
          self.businesses = businesses
@@ -51,16 +42,46 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
          */
     }
     
+    func initializeSearchBar() {
+        // Initialize the UISearchBar
+        searchBar = UISearchBar()
+        searchBar.delegate = self
+        
+        // Add SearchBar to the NavigationBar
+        searchBar.sizeToFit()
+        navigationItem.titleView = searchBar
+    }
+    
+    func initializeTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 120
+        tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissMode.onDrag
+        
+        refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
+        // add refresh control to table view
+        tableView.insertSubview(refreshControl, at: 0)
+    }
+    
     func loadRestaurants() {
         
         filterParameters[TERM_FILTER] = "Restaurants"
         if searchBar.text?.isEmpty == false {
             filterParameters[TERM_FILTER] = searchBar.text!
         }
+        if currentOffset != 0 {
+            filterParameters[OFFSET_PARAM] = "\(currentOffset!)"
+        }
+        else {
+            filterParameters.removeValue(forKey: OFFSET_PARAM)
+            if businesses != nil { self.businesses.removeAll() }
+        }
         SVProgressHUD.show()
         Business.searchWithParameters(parameters: filterParameters, completion: { (businesses: [Business]?, error: Error?) -> Void in
             SVProgressHUD.dismiss()
-            self.businesses = businesses
+            //self.businesses = businesses
+            self.appendBusinesses(businesses)
             self.tableView.reloadData()
             if let businesses = businesses {
                 for business in businesses {
@@ -71,6 +92,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         })
     }
     
+    func appendBusinesses(_ aBusinesses: [Business]?) {
+        currentOffset = currentOffset + aBusinesses!.count
+        if businesses == nil {
+            businesses = aBusinesses
+            return
+        }
+        for i in 0...aBusinesses!.count-1 {
+            businesses.append((aBusinesses?[i])!)
+        }
+    }
+    
+    // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if businesses != nil {
             return businesses.count
@@ -83,6 +116,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             "BusinessCell") as! BusinessTableViewCell
         let business = businesses[indexPath.row]
         cell.business = business
+        if(indexPath.row == businesses.count - 1) {
+            loadRestaurants()
+        }
         return cell
     }
     
@@ -91,11 +127,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
+        currentOffset = 0
         loadRestaurants()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        currentOffset = 0
         loadRestaurants()
     }
     
@@ -104,12 +142,15 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        currentOffset = 0
         loadRestaurants()
         
     }
     
+    // FilterDelegate method
     func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>) {
         filterParameters = aFilterParameters
+        currentOffset = 0
         loadRestaurants()
     }
     

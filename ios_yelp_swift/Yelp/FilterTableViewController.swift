@@ -239,6 +239,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     }
     
     func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
+        
         /*if flag == true {
             filterParameters[CATEGORY_FILTER] = "yes"
         }

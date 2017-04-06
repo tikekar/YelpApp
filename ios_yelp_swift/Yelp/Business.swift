@@ -8,6 +8,9 @@
 
 import UIKit
 
+let OFFSET_PARAM = "offset"
+let TERM_FILTER = "term"
+
 class Business: NSObject {
     let name: String?
     let address: String?
