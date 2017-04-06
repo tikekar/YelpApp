@@ -12,7 +12,7 @@ protocol FilterDelegate: class {
     func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>)
 }
 
-class FilterTableViewController: UITableViewController, OfferingDealDelegate {
+class FilterTableViewController: UITableViewController, OfferingDealDelegate, CategoriesCellDelegate {
     
     var distances: [Dictionary<String, String>] = []
     var sortBy: [Dictionary<String, String>] = []
@@ -30,6 +30,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         sectionHeaders = ["", "Distance", "Sort by", "Categories"]
         distances = FilterManager.getDistances()
         sortBy = FilterManager.getSortCriteria()
@@ -44,7 +45,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -67,7 +68,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
             if isCategoriesOpen == true {
                 return categories.count
             }
-            return 1
+            return 5
         }
         return 0
     }
@@ -83,6 +84,20 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
         }
         return cell
     }
+    
+    func getCategoryCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoriesTableViewCell
+        cell.delegate = self
+        cell.categoryObject = categories[indexPath.row]
+        /*if filterParameters[CATEGORY_FILTER] != nil {
+            cell.dealSwitch.setOn(true, animated: true)
+        }
+        else {
+            cell.dealSwitch.setOn(false, animated: true)
+        }*/
+        return cell
+    }
+
     
     func getDistanceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath) as! DistancesTableViewCell
@@ -133,14 +148,18 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
             let cell = getDistanceCell(tableView, indexPath: indexPath)
             return cell
         }
-        else {
+        else if indexPath.section == 2 {
             let cell = getSortByCell(tableView, indexPath: indexPath)
+            return cell
+        }
+        else {
+            let cell = getCategoryCell(tableView, indexPath: indexPath)
             return cell
         }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
+        if indexPath.section == 0 || indexPath.section == 3 {
             super.tableView(tableView, didSelectRowAt: indexPath)
         }
         else if indexPath.section == 1 {
@@ -170,6 +189,36 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
         }
     }
     
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 3 && isCategoriesOpen == false {
+            var footerView : UIView?
+            footerView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 55))
+            footerView?.backgroundColor = UIColor.white
+            
+            let button_ = UIButton.init(type: UIButtonType.system)
+            button_.setTitle("See All", for: UIControlState.normal)
+            button_.setTitleColor(UIColor.lightGray, for: UIControlState.normal)
+            button_.frame = CGRect(x: 10, y: 5, width: (footerView?.frame.size.width)! - 20, height: 45)
+            button_.addTarget(self, action: #selector(onSeeAllClick(_:)), for: UIControlEvents.touchUpInside)
+            footerView?.addSubview(button_)
+            
+            return footerView
+        }
+        return super.tableView(tableView, viewForFooterInSection: section)
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 3 && isCategoriesOpen == false {
+            return 55
+        }
+        return super.tableView(tableView, heightForFooterInSection: section)
+    }
+    
+    func onSeeAllClick(_ sender:UIButton!){
+        isCategoriesOpen = true
+        tableView.reloadSections(NSIndexSet(index: 3) as IndexSet, with: UITableViewRowAnimation.automatic)
+    }
+    
     @IBAction func onCancelClick(_ sender: Any) {
         dismiss(animated: true) {}
     }
@@ -180,13 +229,22 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate {
         dismiss(animated: true) {}
     }
     
-    func isSwitchOn(flag : Bool) {
+    func isDealSwitchOn(flag : Bool) {
         if flag == true {
             filterParameters[DEAL_FILTER] = "yes"
         }
         else {
             filterParameters.removeValue(forKey: DEAL_FILTER)
         }
+    }
+    
+    func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
+        /*if flag == true {
+            filterParameters[CATEGORY_FILTER] = "yes"
+        }
+        else {
+            filterParameters.removeValue(forKey: CATEGORY_FILTER)
+        }*/
     }
     
     override func didReceiveMemoryWarning() {

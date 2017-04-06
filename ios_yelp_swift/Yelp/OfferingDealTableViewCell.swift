@@ -9,7 +9,7 @@
 import UIKit
 
 protocol OfferingDealDelegate: class {
-    func isSwitchOn(flag : Bool)
+    func isDealSwitchOn(flag : Bool)
 }
 
 class OfferingDealTableViewCell: UITableViewCell {
@@ -22,7 +22,7 @@ class OfferingDealTableViewCell: UITableViewCell {
     }
 
     @IBAction func onSwitchValueChanged(_ sender: Any) {
-        delegate?.isSwitchOn(flag: dealSwitch.isOn)
+        delegate?.isDealSwitchOn(flag: dealSwitch.isOn)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

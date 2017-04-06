@@ -60,9 +60,12 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foz-eB-mtH">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$$" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="foz-eB-mtH">
                                                     <rect key="frame" x="352" y="24" width="15" height="14"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="15" id="VaZ-Ma-14N"/>
+                                                        <constraint firstAttribute="height" constant="14" id="Wbx-bG-not"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                     <color key="textColor" red="0.58999861708752399" green="0.58999861708752399" blue="0.58999861708752399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -95,6 +98,7 @@
                                                 <constraint firstItem="JWs-QR-T5I" firstAttribute="leading" secondItem="Qo4-aR-LO5" secondAttribute="trailing" constant="6" id="8Ux-e5-XMw"/>
                                                 <constraint firstItem="2WG-EE-F1f" firstAttribute="leading" secondItem="Qo4-aR-LO5" secondAttribute="leading" constant="72" id="Cgh-qP-YvR"/>
                                                 <constraint firstItem="KKJ-hP-nXO" firstAttribute="centerY" secondItem="2WG-EE-F1f" secondAttribute="centerY" id="FVZ-Pz-pXF"/>
+                                                <constraint firstItem="foz-eB-mtH" firstAttribute="top" secondItem="yvt-OL-Snm" secondAttribute="bottom" constant="3" id="GH9-yL-Vzp"/>
                                                 <constraint firstItem="Qo4-aR-LO5" firstAttribute="leading" secondItem="Cg4-Lp-szq" secondAttribute="leading" constant="6" id="Lme-sT-lh8"/>
                                                 <constraint firstItem="2WG-EE-F1f" firstAttribute="top" secondItem="bML-C6-dcq" secondAttribute="bottom" constant="2" id="N8S-mY-RWm"/>
                                                 <constraint firstItem="15O-KM-eag" firstAttribute="leading" secondItem="Cg4-Lp-szq" secondAttribute="leading" constant="78" id="aSX-Qb-MaL"/>
@@ -106,6 +110,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="15O-KM-eag" secondAttribute="bottom" constant="12.5" id="uDm-Vs-hpB"/>
                                                 <constraint firstItem="Qo4-aR-LO5" firstAttribute="top" secondItem="Cg4-Lp-szq" secondAttribute="top" constant="4" id="uVa-Oh-AY3"/>
                                                 <constraint firstItem="bML-C6-dcq" firstAttribute="top" secondItem="Cg4-Lp-szq" secondAttribute="top" constant="5" id="wWw-37-bi7"/>
+                                                <constraint firstAttribute="trailing" secondItem="foz-eB-mtH" secondAttribute="trailing" constant="8" id="zXf-AH-z5P"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -181,8 +186,36 @@
                                     <outlet property="dealSwitch" destination="Eez-sn-dSg" id="QLI-od-7wi"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistanceCell" rowHeight="60" id="mn8-X0-RIT" customClass="DistancesTableViewCell" customModule="Yelp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" rowHeight="60" id="yfY-yj-I7X" customClass="CategoriesTableViewCell" customModule="Yelp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="115.5" width="375" height="60"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yfY-yj-I7X" id="qTB-VA-6iC">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auS-aD-xZk">
+                                            <rect key="frame" x="303" y="14" width="51" height="31"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <connections>
+                                                <action selector="onSwitchValueChanged:" destination="yfY-yj-I7X" eventType="valueChanged" id="atz-ws-Mz2"/>
+                                            </connections>
+                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Category" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NED-gA-QgH">
+                                            <rect key="frame" x="15" y="18" width="128" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="categoryLabel" destination="NED-gA-QgH" id="qeR-GS-WCX"/>
+                                    <outlet property="dealSwitch" destination="auS-aD-xZk" id="Z61-2Y-xtC"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistanceCell" rowHeight="60" id="mn8-X0-RIT" customClass="DistancesTableViewCell" customModule="Yelp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="175.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mn8-X0-RIT" id="6lH-i1-Qtk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
@@ -217,7 +250,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortByCell" rowHeight="60" id="abx-tt-QpI" customClass="SortByTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="175.5" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="235.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="abx-tt-QpI" id="duB-5t-GcK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
