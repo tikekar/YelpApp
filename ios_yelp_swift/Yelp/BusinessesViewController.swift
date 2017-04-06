@@ -170,7 +170,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             if let viewController = segue.destination as? UINavigationController {
                 let filterVC_ = viewController.childViewControllers[0] as! FilterTableViewController
                 filterVC_.delegate = self
-                filterVC_.filterParameters = filterParameters
+                FilterHelper.filterParameters = filterParameters
             }
         }
     }

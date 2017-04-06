@@ -19,8 +19,6 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     var categories: [Dictionary<String, String>] = []
     var sectionHeaders : Array<String>! = []
     
-    var filterParameters: Dictionary<String, String> = [:]
-    
     var isDistancesOpen: Bool!
     var isSortByOpen : Bool!
     var isCategoriesOpen: Bool!
@@ -32,9 +30,9 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         
         
         sectionHeaders = ["", "Distance", "Sort by", "Categories"]
-        distances = FilterManager.getDistances()
-        sortBy = FilterManager.getSortCriteria()
-        categories = FilterManager.getCategories()
+        distances = FilterHelper.getDistances()
+        sortBy = FilterHelper.getSortCriteria()
+        categories = FilterHelper.getCategories()
         
         isDistancesOpen = false
         isSortByOpen = false
@@ -76,7 +74,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     func getOfferingDealCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath) as! OfferingDealTableViewCell
         cell.delegate = self
-        if filterParameters[DEAL_FILTER] != nil {
+        if FilterHelper.filterParameters[DEAL_FILTER] != nil {
             cell.dealSwitch.setOn(true, animated: true)
         }
         else {
@@ -89,7 +87,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoriesTableViewCell
         cell.delegate = self
         cell.categoryObject = categories[indexPath.row]
-        let index_ = getCategoryIndexInFilterParam(cell.categoryObject["name"]!)
+        let index_ = FilterHelper.getCategoryIndexInFilterParam(cell.categoryObject["name"]!)
         if index_ >= 0 {
             cell.dealSwitch.setOn(true, animated: true)
         }
@@ -99,16 +97,19 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         return cell
     }
 
-    
     func getDistanceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath) as! DistancesTableViewCell
         cell.distanceObject = distances[indexPath.row]
         if isDistancesOpen == false && indexPath.row == 0 {
+            let obj_ = FilterHelper.getSelectedSortCriteria()
+            if obj_ != nil {
+                cell.distanceObject = obj_!
+            }
             cell.selectionLabel.text = "▼"
             cell.selectionLabel.layer.borderWidth = 0
         }
         else {
-            if let meterValue = filterParameters[DISTANCE_FILTER] {
+            if let meterValue = FilterHelper.filterParameters[DISTANCE_FILTER] {
                 if cell.distanceObject["code"] == meterValue {
                     cell.selectionLabel.text = "✔︎"
                     cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
@@ -123,11 +124,15 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         let cell = tableView.dequeueReusableCell(withIdentifier: "SortByCell", for: indexPath) as! SortByTableViewCell
         cell.sortByObject = sortBy[indexPath.row]
         if isSortByOpen == false && indexPath.row == 0 {
+            let obj_ = FilterHelper.getSelectedSortCriteria()
+            if obj_ != nil {
+                cell.sortByObject = obj_!
+            }
             cell.selectionLabel.text = "▼"
             cell.selectionLabel.layer.borderWidth = 0
         }
         else {
-            if let meterValue = filterParameters[SORT_FILTER] {
+            if let meterValue = FilterHelper.filterParameters[SORT_FILTER] {
                 if cell.sortByObject["code"] == meterValue {
                     cell.selectionLabel.text = "✔︎"
                     cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
@@ -166,7 +171,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         else if indexPath.section == 1 {
             if isDistancesOpen == true {
                 let dict_ = distances[indexPath.row]
-                filterParameters[DISTANCE_FILTER] =  dict_["code"]
+                FilterHelper.filterParameters[DISTANCE_FILTER] =  dict_["code"]
             }
             isDistancesOpen = !isDistancesOpen
             tableView.reloadSections(NSIndexSet(index: indexPath.section) as IndexSet, with: UITableViewRowAnimation.automatic)
@@ -174,7 +179,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         else {
             if isSortByOpen == true {
                 let dict_ = sortBy[indexPath.row]
-                filterParameters[SORT_FILTER] =  dict_["code"]
+                FilterHelper.filterParameters[SORT_FILTER] =  dict_["code"]
             }
             isSortByOpen = !isSortByOpen
             tableView.reloadSections(NSIndexSet(index: indexPath.section) as IndexSet, with: UITableViewRowAnimation.automatic)
@@ -226,69 +231,30 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     
     
     @IBAction func onSearchClick(_ sender: Any) {
-        delegate?.applyFilterParameters(filterParameters)
+        delegate?.applyFilterParameters(FilterHelper.filterParameters)
         dismiss(animated: true) {}
     }
     
     func isDealSwitchOn(flag : Bool) {
         if flag == true {
-            filterParameters[DEAL_FILTER] = "true"
+            FilterHelper.filterParameters[DEAL_FILTER] = "true"
         }
         else {
-            filterParameters.removeValue(forKey: DEAL_FILTER)
+            FilterHelper.filterParameters.removeValue(forKey: DEAL_FILTER)
         }
     }
     
     func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
         
         if flag == true {
-            addToFilterCategories(categoryObject["name"]!)
+            FilterHelper.addToFilterCategories(categoryObject["name"]!)
         }
         else {
-            filterParameters.removeValue(forKey: CATEGORY_FILTER)
+            FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
         }
     }
     
-    func addToFilterCategories(_ categoryName: String) {
-        let index_ = getCategoryIndexInFilterParam(categoryName)
-        if index_ == -1 {
-            if filterParameters[CATEGORY_FILTER] == nil {
-                filterParameters[CATEGORY_FILTER] = categoryName
-            }
-            else {
-                filterParameters[CATEGORY_FILTER] = filterParameters[CATEGORY_FILTER]! + "," + categoryName
-            }
-        }
-    }
-    
-    func removeFromFilterCategories(_ categoryName: String) {
-        var array_ = getSelectedCategories()
-        let index_ = getCategoryIndexInFilterParam(categoryName)
-        if index_ >= 0 {
-            array_.remove(at: index_)
-        }
-        filterParameters[CATEGORY_FILTER] = (array_).joined(separator: ",") as String?
-    }
-    
-    func getCategoryIndexInFilterParam(_ categoryName: String!) -> Int {
-        let array_ = getSelectedCategories()
-        let index_ = array_.index(of: categoryName)
-        if index_ == nil {
-            return -1;
-        }
-        return index_!
-    }
-    
-    func getSelectedCategories() -> Array<String> {
-        var array_: Array<String>! = []
-        let filterCategories_ = filterParameters[CATEGORY_FILTER]
-        if filterCategories_ != nil {
-            array_ = filterCategories_?.components(separatedBy: ",")
-        }
-        return array_
         
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }

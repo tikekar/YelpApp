@@ -15,7 +15,9 @@ let SORT_FILTER = "sort"
 
 
 
-class FilterManager: NSObject {
+class FilterHelper: NSObject {
+    
+    static var filterParameters: Dictionary<String, String> = [:]
     
     static let filterCategories: [Dictionary<String, String>] = [["name" : "Afghan", "code": "afghani"],["name" : "African", "code": "african"],
     ["name" : "American, New", "code": "newamerican"],
@@ -201,5 +203,69 @@ class FilterManager: NSObject {
     class func getDistances() -> [Dictionary<String, String>] {
         return filterDistances
     }
+    
+    class func addToFilterCategories(_ categoryName: String) {
+        let index_ = getCategoryIndexInFilterParam(categoryName)
+        if index_ == -1 {
+            if filterParameters[CATEGORY_FILTER] == nil {
+                filterParameters[CATEGORY_FILTER] = categoryName
+            }
+            else {
+                filterParameters[CATEGORY_FILTER] = FilterHelper.filterParameters[CATEGORY_FILTER]! + "," + categoryName
+            }
+        }
+    }
+    
+    class func removeFromFilterCategories(_ categoryName: String) {
+        var array_ = getSelectedCategories()
+        let index_ = getCategoryIndexInFilterParam(categoryName)
+        if index_ >= 0 {
+            array_.remove(at: index_)
+        }
+        filterParameters[CATEGORY_FILTER] = (array_).joined(separator: ",") as String?
+    }
+    
+    class func getCategoryIndexInFilterParam(_ categoryName: String!) -> Int {
+        let array_ = getSelectedCategories()
+        let index_ = array_.index(of: categoryName)
+        if index_ == nil {
+            return -1;
+        }
+        return index_!
+    }
+    
+    class func getSelectedCategories() -> Array<String> {
+        var array_: Array<String>! = []
+        let filterCategories_ = filterParameters[CATEGORY_FILTER]
+        if filterCategories_ != nil {
+            array_ = filterCategories_?.components(separatedBy: ",")
+        }
+        return array_
+        
+    }
+    
+    class func getSelectedSortCriteria() -> Dictionary<String, String>?{
+        for i in 0...sortBy.count-1 {
+            if let meterValue = FilterHelper.filterParameters[SORT_FILTER] {
+                if sortBy[i]["code"] == meterValue {
+                    return sortBy[i]
+                }
+            }
+        }
+        return nil
+    }
+    
+    class func getSelectedDistance() -> Dictionary<String, String>?{
+        for i in 0...distances.count-1 {
+            if let meterValue = FilterHelper.filterParameters[DISTANCE_FILTER] {
+                if distances[i]["code"] == meterValue {
+                    cell.distanceObject = distances[i]
+                    break
+                }
+            }
+        }
+        return nil
+    }
+
 
 }
