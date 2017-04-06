@@ -8,13 +8,6 @@
 
 import UIKit
 
-let CATEGORY_FILTER = "category_filter"
-let DISTANCE_FILTER = "radius_filter"
-let DEAL_FILTER = "radius_filter"
-let SORT_FILTER = "sort"
-let TERM_FILTER = "term"
-
-
 class Business: NSObject {
     let name: String?
     let address: String?

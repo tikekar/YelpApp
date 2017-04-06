@@ -17,6 +17,8 @@
 		22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */; };
 		31D95BCBCA38716181E686D3 /* Pods_Yelp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C79C0AC126EDAA235847CEA2 /* Pods_Yelp.framework */; };
 		47848697133B87663A122E3D /* Pods_YelpTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1000F3975EB43318C1D4FA /* Pods_YelpTests.framework */; };
+		E7412B4C1E96BD9A0091102F /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4B1E96BD9A0091102F /* FilterManager.swift */; };
+		E7412B4E1E96C5C70091102F /* SortByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4D1E96C5C70091102F /* SortByTableViewCell.swift */; };
 		E75FBBB81E941AFD0033CBB9 /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */; };
 		E7FE06C31E94532E00186013 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C21E94532E00186013 /* FilterTableViewController.swift */; };
 		E7FE06C51E9453F600186013 /* OfferingDealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */; };
@@ -52,6 +54,8 @@
 		9B128C050DE78660DE2A8E75 /* Pods-YelpTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-YelpTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-YelpTests/Pods-YelpTests.release.xcconfig"; sourceTree = "<group>"; };
 		AA3C5CF4FD317D72ABE2AAC4 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79C0AC126EDAA235847CEA2 /* Pods_Yelp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Yelp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7412B4B1E96BD9A0091102F /* FilterManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
+		E7412B4D1E96C5C70091102F /* SortByTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortByTableViewCell.swift; sourceTree = "<group>"; };
 		E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
 		E7FE06C21E94532E00186013 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferingDealTableViewCell.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 		222D8A5719CCF9F900D2DB53 /* Yelp */ = {
 			isa = PBXGroup;
 			children = (
+				E7412B4A1E96BD710091102F /* Managers */,
 				E75FBBB61E941AC20033CBB9 /* Views */,
 				22AAAA9A1AEA0AA100A544AF /* Models */,
 				222D8A7A19CCFAAA00D2DB53 /* API */,
@@ -175,12 +180,21 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E7412B4A1E96BD710091102F /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				E7412B4B1E96BD9A0091102F /* FilterManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		E75FBBB61E941AC20033CBB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */,
 				E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */,
 				E7FE06C81E9560A700186013 /* DistancesTableViewCell.swift */,
+				E7412B4D1E96C5C70091102F /* SortByTableViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -402,9 +416,11 @@
 			files = (
 				E7FE06C91E9560A700186013 /* DistancesTableViewCell.swift in Sources */,
 				E75FBBB81E941AFD0033CBB9 /* BusinessTableViewCell.swift in Sources */,
+				E7412B4E1E96C5C70091102F /* SortByTableViewCell.swift in Sources */,
 				E7FE06C31E94532E00186013 /* FilterTableViewController.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
+				E7412B4C1E96BD9A0091102F /* FilterManager.swift in Sources */,
 				222D8A7D19CCFAE000D2DB53 /* YelpClient.swift in Sources */,
 				E7FE06C51E9453F600186013 /* OfferingDealTableViewCell.swift in Sources */,
 				222D8A5B19CCF9F900D2DB53 /* AppDelegate.swift in Sources */,
