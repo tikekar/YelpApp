@@ -89,12 +89,13 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoriesTableViewCell
         cell.delegate = self
         cell.categoryObject = categories[indexPath.row]
-        /*if filterParameters[CATEGORY_FILTER] != nil {
+        let index_ = getCategoryIndexInFilterParam(cell.categoryObject["name"]!)
+        if index_ >= 0 {
             cell.dealSwitch.setOn(true, animated: true)
         }
         else {
             cell.dealSwitch.setOn(false, animated: true)
-        }*/
+        }
         return cell
     }
 
@@ -231,7 +232,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     
     func isDealSwitchOn(flag : Bool) {
         if flag == true {
-            filterParameters[DEAL_FILTER] = "yes"
+            filterParameters[DEAL_FILTER] = "true"
         }
         else {
             filterParameters.removeValue(forKey: DEAL_FILTER)
@@ -240,12 +241,52 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     
     func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
         
-        /*if flag == true {
-            filterParameters[CATEGORY_FILTER] = "yes"
+        if flag == true {
+            addToFilterCategories(categoryObject["name"]!)
         }
         else {
             filterParameters.removeValue(forKey: CATEGORY_FILTER)
-        }*/
+        }
+    }
+    
+    func addToFilterCategories(_ categoryName: String) {
+        let index_ = getCategoryIndexInFilterParam(categoryName)
+        if index_ == -1 {
+            if filterParameters[CATEGORY_FILTER] == nil {
+                filterParameters[CATEGORY_FILTER] = categoryName
+            }
+            else {
+                filterParameters[CATEGORY_FILTER] = filterParameters[CATEGORY_FILTER]! + "," + categoryName
+            }
+        }
+    }
+    
+    func removeFromFilterCategories(_ categoryName: String) {
+        var array_ = getSelectedCategories()
+        let index_ = getCategoryIndexInFilterParam(categoryName)
+        if index_ >= 0 {
+            array_.remove(at: index_)
+        }
+        filterParameters[CATEGORY_FILTER] = (array_).joined(separator: ",") as String?
+    }
+    
+    func getCategoryIndexInFilterParam(_ categoryName: String!) -> Int {
+        let array_ = getSelectedCategories()
+        let index_ = array_.index(of: categoryName)
+        if index_ == nil {
+            return -1;
+        }
+        return index_!
+    }
+    
+    func getSelectedCategories() -> Array<String> {
+        var array_: Array<String>! = []
+        let filterCategories_ = filterParameters[CATEGORY_FILTER]
+        if filterCategories_ != nil {
+            array_ = filterCategories_?.components(separatedBy: ",")
+        }
+        return array_
+        
     }
     
     override func didReceiveMemoryWarning() {
