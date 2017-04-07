@@ -12,6 +12,7 @@ let CATEGORY_FILTER = "category_filter"
 let DISTANCE_FILTER = "radius_filter"
 let DEAL_FILTER = "deals_filter"
 let SORT_FILTER = "sort"
+let LAT_LONG_FILTER = "ll"
 
 
 class FilterHelper: NSObject {

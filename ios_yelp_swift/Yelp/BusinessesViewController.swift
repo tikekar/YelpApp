@@ -8,9 +8,9 @@
 
 import UIKit
 import SVProgressHUD
+import CoreLocation
 
-
-class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, FilterDelegate {
+class BusinessesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate, FilterDelegate {
     
     var businesses: [Business]!
     
@@ -25,30 +25,29 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     // Error message to show when network call fails
     var errorMessage: String! = "No Businesses Found"
     
+    var locationManager : CLLocationManager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         initializeSearchBar()
         initializeTableView()
-        
-        loadRestaurants()
-        
-        /* Example of Yelp search with more search options specified
-         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-         self.businesses = businesses
-         
-         for business in businesses {
-         print(business.name!)
-         print(business.address!)
-         }
-         }
-         */
+        getCurrentLocation()
+    }
+    
+    func getCurrentLocation() {
+        locationManager = CLLocationManager()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+        locationManager.distanceFilter = 200
+        locationManager.requestWhenInUseAuthorization()
     }
     
     func initializeSearchBar() {
         // Initialize the UISearchBar
         searchBar = UISearchBar()
         searchBar.delegate = self
+        searchBar.placeholder = "Search Businesses Near You"
         
         // Add SearchBar to the NavigationBar
         searchBar.sizeToFit()
@@ -68,11 +67,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.insertSubview(refreshControl, at: 0)
     }
     
-    func loadRestaurants() {
+    func loadBusinesses() {
         errorMessage = "No Businesses Found"
         // TODO: Directly use FilterHelper's filterParameters
-        filterParameters[TERM_FILTER] = "Restaurants"
-        if searchBar.text?.isEmpty == false {
+        //filterParameters[TERM_FILTER] = "Restaurants"
+        if searchBar.text?.isEmpty == false && searchBar.text != "" {
             filterParameters[TERM_FILTER] = searchBar.text!
         }
         if currentOffset != 0 {
@@ -142,7 +141,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         let business = businesses[indexPath.row]
         cell.business = business
         if(indexPath.row == businesses.count - 1) {
-            loadRestaurants()
+            loadBusinesses()
         }
         return cell
     }
@@ -153,22 +152,22 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         currentOffset = 0
-        loadRestaurants()
+        loadBusinesses()
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         currentOffset = 0
-        loadRestaurants()
+        loadBusinesses()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        loadRestaurants()
+        loadBusinesses()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         currentOffset = 0
-        loadRestaurants()
+        loadBusinesses()
         
     }
     
@@ -176,7 +175,25 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>) {
         filterParameters = aFilterParameters
         currentOffset = 0
-        loadRestaurants()
+        loadBusinesses()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == CLAuthorizationStatus.authorizedWhenInUse {
+            locationManager.startUpdatingLocation()
+        }
+    }
+     
+     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        locationManager.delegate = nil
+        if let location = locations.first {
+            filterParameters[LAT_LONG_FILTER] = "\(location.coordinate.latitude)" + "," + "\(location.coordinate.longitude)"
+        }
+        loadBusinesses()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        loadBusinesses()
     }
     
     override func didReceiveMemoryWarning() {

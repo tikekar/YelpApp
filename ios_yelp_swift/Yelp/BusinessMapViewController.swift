@@ -10,20 +10,15 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class BusinessMapViewController: UIViewController, CLLocationManagerDelegate {
+class BusinessMapViewController: UIViewController {
 
     @IBOutlet weak var mkMapView: MKMapView!
-    var locationManager : CLLocationManager!
+    // var locationManager : CLLocationManager!
     
     var business: Business? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        /*locationManager = CLLocationManager()
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-        locationManager.distanceFilter = 200
-        locationManager.requestWhenInUseAuthorization()*/
         
         if business != nil {
             navigationItem.title = business?.name
@@ -47,20 +42,6 @@ class BusinessMapViewController: UIViewController, CLLocationManagerDelegate {
         annotation.title = business?.address
         mkMapView.addAnnotation(annotation)
     }
-    
-    /*func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
-            locationManager.startUpdatingLocation()
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            let span = MKCoordinateSpanMake(0.1, 0.1)
-            let region = MKCoordinateRegionMake(location.coordinate, span)
-            mkMapView.setRegion(region, animated: false)
-        }
-    }*/
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

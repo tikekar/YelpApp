@@ -14,6 +14,7 @@ let TERM_FILTER = "term"
 class Business: NSObject {
     let name: String?
     let address: String?
+    var city: String?
     let imageURL: URL?
     let categories: String?
     let distance: String?
@@ -35,10 +36,16 @@ class Business: NSObject {
         
         let location = dictionary["location"] as? NSDictionary
         var address = ""
+        city = ""
         if location != nil {
             let addressArray = location!["address"] as? NSArray
             if addressArray != nil && addressArray!.count > 0 {
                 address = addressArray![0] as! String
+            }
+            
+            let city_ = location!["city"] as? String
+            if city_ != nil {
+                city = city_
             }
             
             let neighborhoods = location!["neighborhoods"] as? NSArray
