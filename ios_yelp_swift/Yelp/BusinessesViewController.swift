@@ -195,5 +195,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                 FilterHelper.filterParameters = filterParameters
             }
         }
+        else if(segue.identifier == "Show Map View") {
+            let destinationViewController = segue.destination as! BusinessMapViewController
+            let cell = sender as! BusinessTableViewCell
+            destinationViewController.business = cell.business
+        }
     }
 }

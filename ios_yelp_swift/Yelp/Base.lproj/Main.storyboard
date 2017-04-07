@@ -126,6 +126,7 @@
                                             <outlet property="distanceLabel" destination="yvt-OL-Snm" id="Tdj-g7-O8x"/>
                                             <outlet property="ratingsImageView" destination="2WG-EE-F1f" id="h0t-XO-g4B"/>
                                             <outlet property="reviewsCountLabel" destination="KKJ-hP-nXO" id="Xhj-Ap-bga"/>
+                                            <segue destination="012-u1-5ap" kind="show" identifier="Show Map View" id="CRF-v6-0Tz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -322,6 +323,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tFR-WN-a5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4592.8000000000002" y="357.57121439280365"/>
+        </scene>
+        <!--Business Map View Controller-->
+        <scene sceneID="bdU-id-yfc">
+            <objects>
+                <viewController id="012-u1-5ap" customClass="BusinessMapViewController" customModule="Yelp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rxJ-Yy-61O"/>
+                        <viewControllerLayoutGuide type="bottom" id="bQ7-M8-tVV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1T7-oh-O4K">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qmW-Ed-4CT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qmW-Ed-4CT" firstAttribute="leading" secondItem="1T7-oh-O4K" secondAttribute="leading" id="H2p-kX-tJU"/>
+                            <constraint firstItem="bQ7-M8-tVV" firstAttribute="top" secondItem="qmW-Ed-4CT" secondAttribute="bottom" id="The-Ql-9Ym"/>
+                            <constraint firstItem="qmW-Ed-4CT" firstAttribute="top" secondItem="rxJ-Yy-61O" secondAttribute="bottom" id="YVC-cD-ObZ"/>
+                            <constraint firstItem="qmW-Ed-4CT" firstAttribute="top" secondItem="1T7-oh-O4K" secondAttribute="top" id="kYd-u3-9EJ"/>
+                            <constraint firstAttribute="trailing" secondItem="qmW-Ed-4CT" secondAttribute="trailing" id="wPQ-iu-Qh4"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="mkMapView" destination="qmW-Ed-4CT" id="00t-UH-Kzp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="56b-DR-rJm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2727" y="1096"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NPN-f5-1jr">

@@ -20,6 +20,7 @@
 		E7412B4C1E96BD9A0091102F /* FilterHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4B1E96BD9A0091102F /* FilterHelper.swift */; };
 		E7412B4E1E96C5C70091102F /* SortByTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4D1E96C5C70091102F /* SortByTableViewCell.swift */; };
 		E7412B501E96CA5E0091102F /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4F1E96CA5E0091102F /* CategoriesTableViewCell.swift */; };
+		E74C0A071E97333000FE2C45 /* BusinessMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C0A061E97333000FE2C45 /* BusinessMapViewController.swift */; };
 		E75FBBB81E941AFD0033CBB9 /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */; };
 		E7FE06C31E94532E00186013 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C21E94532E00186013 /* FilterTableViewController.swift */; };
 		E7FE06C51E9453F600186013 /* OfferingDealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */; };
@@ -58,6 +59,7 @@
 		E7412B4B1E96BD9A0091102F /* FilterHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterHelper.swift; sourceTree = "<group>"; };
 		E7412B4D1E96C5C70091102F /* SortByTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortByTableViewCell.swift; sourceTree = "<group>"; };
 		E7412B4F1E96CA5E0091102F /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
+		E74C0A061E97333000FE2C45 /* BusinessMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessMapViewController.swift; sourceTree = "<group>"; };
 		E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
 		E7FE06C21E94532E00186013 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferingDealTableViewCell.swift; sourceTree = "<group>"; };
@@ -168,6 +170,7 @@
 			children = (
 				22AAAA9B1AEA1EC300A544AF /* BusinessesViewController.swift */,
 				E7FE06C21E94532E00186013 /* FilterTableViewController.swift */,
+				E74C0A061E97333000FE2C45 /* BusinessMapViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -424,6 +427,7 @@
 				E7FE06C31E94532E00186013 /* FilterTableViewController.swift in Sources */,
 				22AAAA9C1AEA1EC300A544AF /* BusinessesViewController.swift in Sources */,
 				22AAAA991AEA0A9700A544AF /* Business.swift in Sources */,
+				E74C0A071E97333000FE2C45 /* BusinessMapViewController.swift in Sources */,
 				E7412B4C1E96BD9A0091102F /* FilterHelper.swift in Sources */,
 				222D8A7D19CCFAE000D2DB53 /* YelpClient.swift in Sources */,
 				E7FE06C51E9453F600186013 /* OfferingDealTableViewCell.swift in Sources */,
