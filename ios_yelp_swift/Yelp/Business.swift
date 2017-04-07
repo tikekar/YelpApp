@@ -22,6 +22,7 @@ class Business: NSObject {
     let reviewCount: NSNumber?
     var latitude: Double! = 0
     var longitude: Double! = 0
+    var mobileURL: URL?
     
     
     init(dictionary: NSDictionary) {
@@ -32,6 +33,13 @@ class Business: NSObject {
             imageURL = URL(string: imageURLString!)!
         } else {
             imageURL = nil
+        }
+        
+        let mobileUrlString = dictionary["mobile_url"] as? String
+        if mobileUrlString != nil {
+            mobileURL = URL(string: mobileUrlString!)!
+        } else {
+            mobileURL = nil
         }
         
         let location = dictionary["location"] as? NSDictionary
