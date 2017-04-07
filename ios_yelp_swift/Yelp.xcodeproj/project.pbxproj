@@ -22,6 +22,7 @@
 		E7412B501E96CA5E0091102F /* CategoriesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7412B4F1E96CA5E0091102F /* CategoriesTableViewCell.swift */; };
 		E74C0A071E97333000FE2C45 /* BusinessMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74C0A061E97333000FE2C45 /* BusinessMapViewController.swift */; };
 		E75FBBB81E941AFD0033CBB9 /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */; };
+		E7779CC61E983E5900636B2F /* Yelp_trademark_RGB.png in Resources */ = {isa = PBXBuildFile; fileRef = E7779CC51E983E5900636B2F /* Yelp_trademark_RGB.png */; };
 		E7FE06C31E94532E00186013 /* FilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C21E94532E00186013 /* FilterTableViewController.swift */; };
 		E7FE06C51E9453F600186013 /* OfferingDealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */; };
 		E7FE06C91E9560A700186013 /* DistancesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FE06C81E9560A700186013 /* DistancesTableViewCell.swift */; };
@@ -61,6 +62,7 @@
 		E7412B4F1E96CA5E0091102F /* CategoriesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesTableViewCell.swift; sourceTree = "<group>"; };
 		E74C0A061E97333000FE2C45 /* BusinessMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessMapViewController.swift; sourceTree = "<group>"; };
 		E75FBBB71E941AFD0033CBB9 /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
+		E7779CC51E983E5900636B2F /* Yelp_trademark_RGB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yelp_trademark_RGB.png; sourceTree = "<group>"; };
 		E7FE06C21E94532E00186013 /* FilterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterTableViewController.swift; sourceTree = "<group>"; };
 		E7FE06C41E9453F600186013 /* OfferingDealTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OfferingDealTableViewCell.swift; sourceTree = "<group>"; };
 		E7FE06C81E9560A700186013 /* DistancesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DistancesTableViewCell.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 		222D8A5719CCF9F900D2DB53 /* Yelp */ = {
 			isa = PBXGroup;
 			children = (
+				E7779CC41E983E5900636B2F /* Resources */,
 				E75FBBB61E941AC20033CBB9 /* Views */,
 				22AAAA9A1AEA0AA100A544AF /* Models */,
 				222D8A7A19CCFAAA00D2DB53 /* API */,
@@ -203,6 +206,14 @@
 				E7412B4F1E96CA5E0091102F /* CategoriesTableViewCell.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		E7779CC41E983E5900636B2F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E7779CC51E983E5900636B2F /* Yelp_trademark_RGB.png */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F64653F46DB3B45A24B65CDD /* Pods */ = {
@@ -310,6 +321,7 @@
 				222D8A6019CCF9F900D2DB53 /* Main.storyboard in Resources */,
 				222D8A6519CCF9F900D2DB53 /* LaunchScreen.xib in Resources */,
 				222D8A6219CCF9F900D2DB53 /* Images.xcassets in Resources */,
+				E7779CC61E983E5900636B2F /* Yelp_trademark_RGB.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

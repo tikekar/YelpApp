@@ -28,7 +28,6 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         sectionHeaders = ["", "Distance", "Sort by", "Categories"]
         distances = FilterHelper.getDistances()
         sortBy = FilterHelper.getSortCriteria()
@@ -38,7 +37,6 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         isSortByOpen = false
         isCategoriesOpen = false
         
-        tableView.register(UINib(nibName: "FilterTableHeaderView", bundle: nil), forHeaderFooterViewReuseIdentifier: "FilterTableHeaderView")
     }
 
     // MARK: - Table view data source
@@ -87,7 +85,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoriesTableViewCell
         cell.delegate = self
         cell.categoryObject = categories[indexPath.row]
-        let index_ = FilterHelper.getCategoryIndexInFilterParam(cell.categoryObject["name"]!)
+        let index_ = FilterHelper.getCategoryIndexInFilterParam(cell.categoryObject["code"]!)
         if index_ >= 0 {
             cell.dealSwitch.setOn(true, animated: true)
         }
@@ -247,7 +245,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
         
         if flag == true {
-            FilterHelper.addToFilterCategories(categoryObject["name"]!)
+            FilterHelper.addToFilterCategories(categoryObject["code"]!)
         }
         else {
             FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)

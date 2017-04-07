@@ -29,13 +29,24 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         initializeSearchBar()
         initializeTableView()
         getCurrentLocation()
     }
     
+    // Ask for Location services permission
+    // If user allows it, then show the businesses near current location
+    // Else default it to SFO ie give SFO's coordinates
     func getCurrentLocation() {
+        if CLLocationManager.locationServicesEnabled() {
+            if CLLocationManager.authorizationStatus() == .denied {
+                searchBar.placeholder = "Search Near San Francisco"
+                loadBusinesses()
+            }
+        } else {
+            loadBusinesses()
+        }
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -132,7 +143,6 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             return businesses.count
 
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -150,11 +160,13 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK - Refresh control
     func refreshControlAction(_ refreshControl: UIRefreshControl) {
         currentOffset = 0
         loadBusinesses()
     }
     
+    // MARK - Search Bar
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         currentOffset = 0
@@ -178,9 +190,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         loadBusinesses()
     }
     
+    // MARK - CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        if status == CLAuthorizationStatus.authorizedWhenInUse {
+        if status == CLAuthorizationStatus.authorizedWhenInUse || status == CLAuthorizationStatus.authorizedAlways {
             locationManager.startUpdatingLocation()
+        }
+        else if status == CLAuthorizationStatus.denied {
+            searchBar.placeholder = "Search Near San Francisco"
+            loadBusinesses()
         }
     }
      
