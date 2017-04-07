@@ -253,7 +253,6 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
             FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
         }
     }
-    
         
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

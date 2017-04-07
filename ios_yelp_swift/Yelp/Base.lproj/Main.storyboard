@@ -146,6 +146,11 @@
                                 <segue destination="EhI-Oz-bcK" kind="presentation" identifier="Show Filter View" id="rYs-Ez-5qx"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Map" id="rKc-Pp-V4e">
+                            <connections>
+                                <segue destination="012-u1-5ap" kind="show" identifier="Show All On Map" id="qus-uk-khp"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="filterButton" destination="qtY-3R-guO" id="f1j-XA-9fW"/>
@@ -395,4 +400,7 @@
             <point key="canvasLocation" x="3653.5999999999999" y="357.57121439280365"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="qus-uk-khp"/>
+    </inferredMetricsTieBreakers>
 </document>

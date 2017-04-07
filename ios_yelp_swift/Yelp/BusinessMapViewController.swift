@@ -13,19 +13,25 @@ import CoreLocation
 class BusinessMapViewController: UIViewController {
 
     @IBOutlet weak var mkMapView: MKMapView!
-    // var locationManager : CLLocationManager!
     
-    var business: Business? = nil
+    //var business: Business? = nil
+    var businesses: [Business]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if business != nil {
-            navigationItem.title = business?.name
-            let centerLocation = CLLocation(latitude: (business?.latitude)!, longitude: (business?.longitude)!)
-            goToLocation(location: centerLocation)
-            let coordinate = CLLocationCoordinate2DMake((business?.latitude)!, (business?.longitude)!)
-            addAnnotationAtCoordinate(coordinate: coordinate)
+       
+        if businesses != nil && businesses.count > 0 {
+            if businesses.count == 1 {
+                navigationItem.title = businesses[0].name
+            }
+            for i in 0...businesses.count - 1 {
+                let business = businesses[i]
+                if i == 0 {
+                    let centerLocation = CLLocation(latitude: (business.latitude)!, longitude: (business.longitude)!)
+                    goToLocation(location: centerLocation)
+                }
+                addAnnotationAtCoordinate(business: business)
+            }
         }
         
     }
@@ -36,10 +42,11 @@ class BusinessMapViewController: UIViewController {
         mkMapView.setRegion(region, animated: false)
     }
     
-    func addAnnotationAtCoordinate(coordinate: CLLocationCoordinate2D) {
+    func addAnnotationAtCoordinate(business: Business) {
+        let coordinate = CLLocationCoordinate2DMake((business.latitude)!, (business.longitude)!)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = business?.address
+        annotation.title = business.address
         mkMapView.addAnnotation(annotation)
     }
 

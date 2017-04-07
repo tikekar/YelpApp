@@ -215,7 +215,11 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         else if(segue.identifier == "Show Map View") {
             let destinationViewController = segue.destination as! BusinessMapViewController
             let cell = sender as! BusinessTableViewCell
-            destinationViewController.business = cell.business
+            destinationViewController.businesses = [cell.business]
+        }
+        else if(segue.identifier == "Show All On Map") {
+            let destinationViewController = segue.destination as! BusinessMapViewController
+            destinationViewController.businesses = businesses
         }
     }
 }
