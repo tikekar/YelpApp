@@ -94,7 +94,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func appendBusinesses(_ aBusinesses: [Business]?) {
-        if aBusinesses == nil {
+        if aBusinesses == nil || aBusinesses!.count == 0 {
             return
         }
         currentOffset = currentOffset + aBusinesses!.count

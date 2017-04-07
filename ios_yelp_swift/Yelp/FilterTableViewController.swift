@@ -101,7 +101,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath) as! DistancesTableViewCell
         cell.distanceObject = distances[indexPath.row]
         if isDistancesOpen == false && indexPath.row == 0 {
-            let obj_ = FilterHelper.getSelectedSortCriteria()
+            let obj_ = FilterHelper.getSelectedDistance()
             if obj_ != nil {
                 cell.distanceObject = obj_!
             }
