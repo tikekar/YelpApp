@@ -46,7 +46,7 @@ class BusinessMapViewController: UIViewController {
         let coordinate = CLLocationCoordinate2DMake((business.latitude)!, (business.longitude)!)
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
-        annotation.title = business.address
+        annotation.title = business.address! + ", " + business.city!
         mkMapView.addAnnotation(annotation)
     }
 
