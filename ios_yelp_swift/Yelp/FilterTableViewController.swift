@@ -166,7 +166,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 || indexPath.section == 3 {
-            super.tableView(tableView, didSelectRowAt: indexPath)
+            return
         }
         else if indexPath.section == 1 {
             if isDistancesOpen == true {

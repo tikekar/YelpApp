@@ -22,6 +22,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     var currentOffset: Int! = 0
     let refreshControl = UIRefreshControl()
     
+    // Error message to show when network call fails
+    var errorMessage: String! = "No Businesses Found"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,13 +62,14 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         tableView.estimatedRowHeight = 120
         tableView.keyboardDismissMode =  UIScrollViewKeyboardDismissMode.onDrag
         
+        
         refreshControl.addTarget(self, action: #selector(refreshControlAction(_:)), for: UIControlEvents.valueChanged)
         // add refresh control to table view
         tableView.insertSubview(refreshControl, at: 0)
     }
     
     func loadRestaurants() {
-        
+        errorMessage = "No Businesses Found"
         // TODO: Directly use FilterHelper's filterParameters
         filterParameters[TERM_FILTER] = "Restaurants"
         if searchBar.text?.isEmpty == false {
@@ -81,13 +85,18 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         SVProgressHUD.show()
         Business.searchWithParameters(parameters: filterParameters, completion: { (businesses: [Business]?, error: Error?) -> Void in
             SVProgressHUD.dismiss()
-            //self.businesses = businesses
-            self.appendBusinesses(businesses)
-            self.tableView.reloadData()
-            if let businesses = businesses {
-                for business in businesses {
-                    print(business.name!)
-                    print(business.address!)
+            if error != nil {
+                self.errorMessage = error?.localizedDescription
+                self.tableView.reloadData()
+            }
+            else {
+                self.appendBusinesses(businesses)
+                self.tableView.reloadData()
+                if let businesses = businesses {
+                    for business in businesses {
+                        print(business.name!)
+                        print(business.address!)
+                    }
                 }
             }
         })
@@ -109,10 +118,22 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     
     // MARK: - TableView
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if businesses != nil {
-            return businesses.count
+        // When movie view is empty, then show the empty view.
+        // It will show the error from the server call if that is the reason for the empty movie set.
+        if(businesses == nil || businesses.count == 0) {
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: tableView.bounds.size.width, height: tableView.bounds.size.height))
+            // label.center = CGPoint(x: 160, y: 285)
+            label.textAlignment = .center
+            label.text = errorMessage
+            label.numberOfLines = 0
+            tableView.backgroundView = label
+            return 0
         }
-        return 0
+        else {
+            return businesses.count
+
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
