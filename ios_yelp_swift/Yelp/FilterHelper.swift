@@ -194,7 +194,19 @@ class FilterHelper: NSObject {
     static let filterDistances = [["name" : "Auto", "code" : "auto"], ["name" : "0.3 Mile", "code" : "482"], ["name" : "1 Mile", "code" : "1609"], ["name" : "5 Miles", "code": "8046"], ["name" : "20 Miles", "code" : "32186"]]
     
     class func getCategories() -> [Dictionary<String, String>] {
-        return filterCategories
+        if filterParameters[CATEGORY_FILTER] == nil {
+            return filterCategories
+        }
+        var categoriesInSequence = filterCategories
+        for i in 0...categoriesInSequence.count-1 {
+            let index_ = getCategoryIndexInFilterParam(filterCategories[i]["code"])
+            if index_ >= 0 {
+                let iCategory = filterCategories[i]
+                categoriesInSequence.remove(at: i)
+                categoriesInSequence.insert(iCategory, at: 0)
+            }
+        }
+        return categoriesInSequence
     }
     
     class func getSortCriteria() -> [Dictionary<String, String>] {

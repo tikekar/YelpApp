@@ -121,8 +121,11 @@ class Business: NSObject {
     class func searchWithParameters(parameters: Dictionary<String, Any>, completion: @escaping ([Business]?, Error?) -> Void) -> Void {
         // Need this because parameters is a let kind and cannot be modified
         var modifiableParameters : Dictionary = parameters
-        if modifiableParameters["ll"] == nil {
-            modifiableParameters["ll"] = "37.785771,-122.406165" as AnyObject?
+        if modifiableParameters[LAT_LONG_FILTER] == nil {
+            modifiableParameters[LAT_LONG_FILTER] = "37.785771,-122.406165" as AnyObject?
+        }
+        if modifiableParameters[CATEGORY_FILTER] != nil {
+            modifiableParameters[CATEGORY_FILTER] = modifiableParameters[CATEGORY_FILTER] as AnyObject?
         }
 
         _ = YelpClient.sharedInstance.searchWithParameters(modifiableParameters, completion: completion)

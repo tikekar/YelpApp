@@ -36,9 +36,8 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         isDistancesOpen = false
         isSortByOpen = false
         isCategoriesOpen = false
-        
     }
-
+    
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 4
