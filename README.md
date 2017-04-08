@@ -46,9 +46,11 @@ The following **additional** features are implemented:
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
 1. auto layout of the business cell
-2. 
+2. Further modifying overall structure of the code (Filter page)
 
 ## Notes
+
+Filter Page structure - Currently I have kept all 4 types of cells as separate just for clarity so that they can each take an object differently. TODO: merge the deals and category cells and merge the sortby and distance cells. 
 
 Describe any challenges encountered while building the app.
 
