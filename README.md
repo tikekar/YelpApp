@@ -2,7 +2,7 @@
 
 **Yelp app** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 22 hours spent in total
+Time spent: 23 hours spent in total
 
 ## Video Walkthrough
 
@@ -54,8 +54,7 @@ Filter Page structure - Currently I have kept all 4 types of cells as separate j
 
 Describe any challenges encountered while building the app.
 
-Need to further tune the auto layout of business cell. Currently it works, but I have used businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
-So I am trying to further tune some constraint so that it will work without this.
+The constraints between the restaurant name and distance in the tableview cell gave me some issues. First I used businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20 to make it work. But later on I was able to fix it adding constraints through storyboard. 
 
 Also I need to work on custom MKAnnotationView so that I can make it clickable on the MapView.
 
