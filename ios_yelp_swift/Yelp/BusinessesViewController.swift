@@ -90,7 +90,10 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         }
         else {
             filterParameters.removeValue(forKey: OFFSET_PARAM)
-            if businesses != nil { self.businesses.removeAll() }
+            if businesses != nil {
+                businesses.removeAll()
+                tableView.reloadData()
+            }
         }
         SVProgressHUD.show()
         Business.searchWithParameters(parameters: filterParameters, completion: { (businesses: [Business]?, error: Error?) -> Void in
@@ -140,6 +143,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
             return 0
         }
         else {
+            print("count " + "\(businesses.count)")
             return businesses.count
 
         }
