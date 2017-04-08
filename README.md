@@ -25,19 +25,20 @@ The following **optional** features are implemented:
    - [X] Infinite scroll for restaurant results.
    - [ ] Implement map view of restaurant results.
 - [ ] Filter page
-   - [ ] Implement a custom switch instead of the default UISwitch.
-   - [ ] Distance filter should expand as in the real Yelp app
+   - [X] iOS 10 does not allow changing the on and off image for UISwitch. Changing it had no effect. So I only changed its background color
+   - [X] Distance filter should expand as in the real Yelp app
    - [X] Categories should show a subset of the full list with a "See All" row to expand. Category list is [here](http://www.yelp.com/developers/documentation/category_list).
-- [ ] Implement the restaurant detail page.
+- [X] Implement the restaurant detail page. (Clicking the restaurant cell opens it in the map page)
 
 The following **additional** features are implemented:
 
-- [ ] List anything else that you can get done to improve the app functionality!
+-  When app opened, it asks for location services permission. If allowed, then show the businesses for current location. Else use the default SFO location coordinates
+- The selected categories will show up at the top of the list
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1.
-2.
+1. auto layout of the business cell
+2. 
 
 ## Video Walkthrough
 
@@ -51,9 +52,14 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Describe any challenges encountered while building the app.
 
+Need to further tune the auto layout of business cell. Currently it works, but I have used businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
+So I am trying to further tune some constraint so that it will work without this.
+
+Also I need to work on custom MKAnnotationView so that I can make it clickable on the MapView.
+
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2017] [Gauri Tikekar]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
