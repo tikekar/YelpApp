@@ -12,6 +12,8 @@ protocol OfferingDealDelegate: class {
     func isDealSwitchOn(flag : Bool)
 }
 
+// Cell for Offering Deal cell
+// TODO: Merge it with Categories Cell
 class OfferingDealTableViewCell: UITableViewCell {
 
     var delegate: OfferingDealDelegate?

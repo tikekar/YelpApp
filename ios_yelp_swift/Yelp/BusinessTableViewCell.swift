@@ -38,12 +38,13 @@ class BusinessTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         businessImageView.layer.cornerRadius = 4
-        businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
+        // Fixed this by adding constraints in storyboard. So dont need this anymore
+        //businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
+        //businessNameLabel.preferredMaxLayoutWidth = distanceLabel.frame.origin.x - businessNameLabel.frame.origin.x - 20
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

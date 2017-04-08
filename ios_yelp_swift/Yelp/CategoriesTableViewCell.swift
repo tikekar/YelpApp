@@ -12,6 +12,8 @@ protocol CategoriesCellDelegate: class {
     func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>)
 }
 
+// Cell for Categories cell in FilterView
+// TODO: Merge it with Deal Cell
 class CategoriesTableViewCell: UITableViewCell {
 
     var delegate: CategoriesCellDelegate?

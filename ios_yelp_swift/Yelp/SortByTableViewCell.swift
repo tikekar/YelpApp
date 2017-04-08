@@ -8,6 +8,8 @@
 
 import UIKit
 
+// Cell for SortBy cell in FilterView
+// TODO: Merge it with Distance Cell
 class SortByTableViewCell: UITableViewCell {
 
     @IBOutlet weak var sortByLabel: UILabel!

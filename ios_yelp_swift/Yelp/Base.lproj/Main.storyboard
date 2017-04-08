@@ -51,7 +51,7 @@
                                                         <constraint firstAttribute="height" constant="17" id="GhJ-sx-RJc"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Grand Pu Bah" textAlignment="natural" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bML-C6-dcq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Grand Pu Bah" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bML-C6-dcq">
                                                     <rect key="frame" x="78" y="5" width="93.5" height="23"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -106,6 +106,7 @@
                                                 <constraint firstItem="foz-eB-mtH" firstAttribute="top" secondItem="yvt-OL-Snm" secondAttribute="bottom" constant="3" id="GH9-yL-Vzp"/>
                                                 <constraint firstItem="Qo4-aR-LO5" firstAttribute="leading" secondItem="Cg4-Lp-szq" secondAttribute="leading" constant="6" id="Lme-sT-lh8"/>
                                                 <constraint firstItem="2WG-EE-F1f" firstAttribute="top" secondItem="bML-C6-dcq" secondAttribute="bottom" constant="2" id="N8S-mY-RWm"/>
+                                                <constraint firstItem="yvt-OL-Snm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="bML-C6-dcq" secondAttribute="trailing" constant="42" id="PQT-mD-oqv"/>
                                                 <constraint firstItem="15O-KM-eag" firstAttribute="leading" secondItem="Cg4-Lp-szq" secondAttribute="leading" constant="78" id="aSX-Qb-MaL"/>
                                                 <constraint firstItem="15O-KM-eag" firstAttribute="top" secondItem="JWs-QR-T5I" secondAttribute="bottom" constant="7" id="dsH-l1-Xc7"/>
                                                 <constraint firstItem="bML-C6-dcq" firstAttribute="leading" secondItem="Qo4-aR-LO5" secondAttribute="trailing" constant="6" id="eXX-th-Jxt"/>
