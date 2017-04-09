@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Cells to show the distance and sort by filter cells
 class ExpandTableViewCell: UITableViewCell {
 
     @IBOutlet weak var nameLabel: UILabel!

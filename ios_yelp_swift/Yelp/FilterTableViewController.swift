@@ -227,16 +227,18 @@ class FilterTableViewController: UITableViewController, SwitchCellDelegate {
         tableView.reloadSections(NSIndexSet(index: 3) as IndexSet, with: UITableViewRowAnimation.automatic)
     }
     
+    // Cancel navigation bar button click
     @IBAction func onCancelClick(_ sender: Any) {
         dismiss(animated: true) {}
     }
     
-    
+    // search navigation bar button click
     @IBAction func onSearchClick(_ sender: Any) {
         delegate?.applyFilterParameters(FilterHelper.filterParameters)
         dismiss(animated: true) {}
     }
     
+    // SwitchCellDelegate method
     func isSwitchOn(flag : Bool, object: Dictionary<String, String>,  filterParamType: String) {
         
         if filterParamType == DEAL_FILTER {

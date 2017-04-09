@@ -8,6 +8,7 @@
 
 import UIKit
 
+// Cell used for Offering Deal and category filter cells
 protocol SwitchCellDelegate: class {
     func isSwitchOn(flag : Bool, object: Dictionary<String, String>, filterParamType: String)
 }
