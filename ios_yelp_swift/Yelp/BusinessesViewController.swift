@@ -85,6 +85,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
         if searchBar.text?.isEmpty == false && searchBar.text != "" {
             filterParameters[TERM_FILTER] = searchBar.text!
         }
+        else {
+            filterParameters.removeValue(forKey: TERM_FILTER)
+        }
         if currentOffset != 0 {
             filterParameters[OFFSET_PARAM] = "\(currentOffset!)"
         }
@@ -178,6 +181,7 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        
         loadBusinesses()
     }
     
