@@ -2,7 +2,7 @@
 
 **Yelp app** is a Yelp search app using the [Yelp API](http://www.yelp.com/developers/documentation/v2/search_api).
 
-Time spent: 23 hours spent in total
+Time spent: 25 hours spent in total
 
 ## Video Walkthrough
 
@@ -50,7 +50,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 ## Notes
 
-Filter Page structure - Currently I have kept all 4 types of cells as separate just for clarity so that they can each take an object differently. TODO: merge the deals and category cells and merge the sortby and distance cells. 
+Filter Page structure - Trying to further modify the structure of the tableView. May be subclass it?? 
 
 Describe any challenges encountered while building the app.
 
