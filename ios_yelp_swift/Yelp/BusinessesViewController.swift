@@ -115,6 +115,9 @@ class BusinessesViewController: UIViewController, UITableViewDataSource, UITable
                     }
                 }
             }
+            if(self.refreshControl.isRefreshing) {
+                self.refreshControl.endRefreshing()
+            }
         })
     }
     
