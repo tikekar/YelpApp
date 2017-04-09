@@ -12,11 +12,12 @@ protocol FilterDelegate: class {
     func applyFilterParameters(_ aFilterParameters: Dictionary<String, String>)
 }
 
-class FilterTableViewController: UITableViewController, OfferingDealDelegate, CategoriesCellDelegate {
+class FilterTableViewController: UITableViewController, SwitchCellDelegate {
     
     var distances: [Dictionary<String, String>] = []
     var sortBy: [Dictionary<String, String>] = []
     var categories: [Dictionary<String, String>] = []
+    var deals: [Dictionary<String, String>] = []
     var sectionHeaders : Array<String>! = []
     
     var isDistancesOpen: Bool!
@@ -32,6 +33,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         distances = FilterHelper.getDistances()
         sortBy = FilterHelper.getSortCriteria()
         categories = FilterHelper.getCategories()
+        deals = FilterHelper.deals
         
         isDistancesOpen = false
         isSortByOpen = false
@@ -45,7 +47,7 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            return deals.count
         }
         else if section == 1 {
             if isDistancesOpen == true {
@@ -69,27 +71,30 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
     }
     
     func getOfferingDealCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "OfferingDealCell", for: indexPath) as! OfferingDealTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchTableViewCell
         cell.delegate = self
+        cell.filterParamType = DEAL_FILTER
+        cell.myObject = deals[indexPath.row]
         if FilterHelper.filterParameters[DEAL_FILTER] != nil {
-            cell.dealSwitch.setOn(true, animated: true)
+            cell.mySwitch.setOn(true, animated: true)
         }
         else {
-            cell.dealSwitch.setOn(false, animated: true)
+            cell.mySwitch.setOn(false, animated: true)
         }
         return cell
     }
     
     func getCategoryCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as! CategoriesTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SwitchCell", for: indexPath) as! SwitchTableViewCell
         cell.delegate = self
-        cell.categoryObject = categories[indexPath.row]
-        let index_ = FilterHelper.getCategoryIndexInFilterParam(cell.categoryObject["code"]!)
+        cell.filterParamType = CATEGORY_FILTER
+        cell.myObject = categories[indexPath.row]
+        let index_ = FilterHelper.getCategoryIndexInFilterParam(cell.myObject["code"]!)
         if index_ >= 0 {
-            cell.dealSwitch.setOn(true, animated: true)
+            cell.mySwitch.setOn(true, animated: true)
         }
         else {
-            cell.dealSwitch.setOn(false, animated: true)
+            cell.mySwitch.setOn(false, animated: true)
         }
         return cell
     }
@@ -232,7 +237,27 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         dismiss(animated: true) {}
     }
     
-    func isDealSwitchOn(flag : Bool) {
+    func isSwitchOn(flag : Bool, object: Dictionary<String, String>,  filterParamType: String) {
+        
+        if filterParamType == DEAL_FILTER {
+            addRemoveDealsFilter(flag: flag, object: object)
+        }
+        else {
+            addRemoveCategoriesFilter(flag: flag, categoryObject: object)
+        }
+    }
+    
+    /*func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
+        
+        if flag == true {
+            FilterHelper.addToFilterCategories(categoryObject["code"]!)
+        }
+        else {
+            FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
+        }
+    }*/
+    
+    func addRemoveDealsFilter(flag : Bool, object: Dictionary<String, String>) {
         if flag == true {
             FilterHelper.filterParameters[DEAL_FILTER] = "true"
         }
@@ -241,15 +266,17 @@ class FilterTableViewController: UITableViewController, OfferingDealDelegate, Ca
         }
     }
     
-    func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
+    func addRemoveCategoriesFilter(flag : Bool, categoryObject: Dictionary<String, String>) {
         
         if flag == true {
             FilterHelper.addToFilterCategories(categoryObject["code"]!)
         }
         else {
-            FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
+            //FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
+            FilterHelper.removeFromFilterCategories(categoryObject["code"]!)
         }
     }
+
         
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -193,6 +193,8 @@ class FilterHelper: NSObject {
     
     static let filterDistances = [["name" : "Auto", "code" : "auto"], ["name" : "0.3 Mile", "code" : "482"], ["name" : "1 Mile", "code" : "1609"], ["name" : "5 Miles", "code": "8046"], ["name" : "20 Miles", "code" : "32186"]]
     
+    static let deals: [Dictionary<String, String>] = [["name" : "Offering Deals", "code": "true"]]
+    
     class func getCategories() -> [Dictionary<String, String>] {
         if filterParameters[CATEGORY_FILTER] == nil {
             return filterCategories
@@ -235,7 +237,12 @@ class FilterHelper: NSObject {
         if index_ >= 0 {
             array_.remove(at: index_)
         }
-        filterParameters[CATEGORY_FILTER] = (array_).joined(separator: ",") as String?
+        if array_.count == 0 {
+            filterParameters.removeValue(forKey: CATEGORY_FILTER)
+        }
+        else {
+            filterParameters[CATEGORY_FILTER] = (array_).joined(separator: ",") as String?
+        }
     }
     
     class func getCategoryIndexInFilterParam(_ categoryName: String!) -> Int {

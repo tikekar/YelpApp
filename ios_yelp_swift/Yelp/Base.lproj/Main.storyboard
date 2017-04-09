@@ -171,7 +171,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="OfferingDealCell" rowHeight="50" id="uqD-9Q-xcV" customClass="OfferingDealTableViewCell" customModule="Yelp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="SwitchCell" rowHeight="50" id="uqD-9Q-xcV" customClass="SwitchTableViewCell" customModule="Yelp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uqD-9Q-xcV" id="bFp-7B-7gh">
@@ -182,7 +182,7 @@
                                             <rect key="frame" x="303" y="9.5" width="51" height="31"/>
                                             <color key="onTintColor" red="0.82745098039999998" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <action selector="onSwitchValueChanged:" destination="uqD-9Q-xcV" eventType="valueChanged" id="dDe-2U-mPE"/>
+                                                <action selector="onSwitchValueChanged:" destination="uqD-9Q-xcV" eventType="valueChanged" id="tln-MA-luP"/>
                                             </connections>
                                         </switch>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Offering a Deal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5yW-mz-ucB">
@@ -200,45 +200,12 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="dealSwitch" destination="Eez-sn-dSg" id="QLI-od-7wi"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CategoryCell" rowHeight="50" id="yfY-yj-I7X" customClass="CategoriesTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="105.5" width="375" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yfY-yj-I7X" id="qTB-VA-6iC">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="auS-aD-xZk">
-                                            <rect key="frame" x="303" y="9.5" width="51" height="31"/>
-                                            <color key="onTintColor" red="0.82745098039999998" green="0.13725490200000001" blue="0.13725490200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <connections>
-                                                <action selector="onSwitchValueChanged:" destination="yfY-yj-I7X" eventType="valueChanged" id="atz-ws-Mz2"/>
-                                            </connections>
-                                        </switch>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Category" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NED-gA-QgH">
-                                            <rect key="frame" x="15" y="15" width="67" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="auS-aD-xZk" secondAttribute="trailing" constant="23" id="1Jo-M9-f4P"/>
-                                        <constraint firstItem="NED-gA-QgH" firstAttribute="centerY" secondItem="qTB-VA-6iC" secondAttribute="centerY" id="2xs-8K-fqK"/>
-                                        <constraint firstItem="auS-aD-xZk" firstAttribute="leading" relation="lessThanOrEqual" secondItem="NED-gA-QgH" secondAttribute="trailing" constant="221" id="8kC-7L-9g2"/>
-                                        <constraint firstItem="NED-gA-QgH" firstAttribute="leading" secondItem="qTB-VA-6iC" secondAttribute="leading" constant="15" id="WbE-KX-C95"/>
-                                        <constraint firstItem="auS-aD-xZk" firstAttribute="centerY" secondItem="qTB-VA-6iC" secondAttribute="centerY" id="cMk-2l-3w2"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="categoryLabel" destination="NED-gA-QgH" id="qeR-GS-WCX"/>
-                                    <outlet property="dealSwitch" destination="auS-aD-xZk" id="Z61-2Y-xtC"/>
+                                    <outlet property="mySwitch" destination="Eez-sn-dSg" id="DR3-PH-u6a"/>
+                                    <outlet property="nameLabel" destination="5yW-mz-ucB" id="3VQ-Ai-xZe"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistanceCell" rowHeight="50" id="mn8-X0-RIT" customClass="DistancesTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="155.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="105.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mn8-X0-RIT" id="6lH-i1-Qtk">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
@@ -274,7 +241,7 @@
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortByCell" rowHeight="50" id="abx-tt-QpI" customClass="SortByTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="205.5" width="375" height="50"/>
+                                <rect key="frame" x="0.0" y="155.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="abx-tt-QpI" id="duB-5t-GcK">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
