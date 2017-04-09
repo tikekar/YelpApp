@@ -100,19 +100,19 @@ class FilterTableViewController: UITableViewController, SwitchCellDelegate {
     }
 
     func getDistanceCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DistanceCell", for: indexPath) as! DistancesTableViewCell
-        cell.distanceObject = distances[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpandCell", for: indexPath) as! ExpandTableViewCell
+        cell.cellObject = distances[indexPath.row]
         if isDistancesOpen == false && indexPath.row == 0 {
             let obj_ = FilterHelper.getSelectedDistance()
             if obj_ != nil {
-                cell.distanceObject = obj_!
+                cell.cellObject = obj_!
             }
             cell.selectionLabel.text = "▼"
             cell.selectionLabel.layer.borderWidth = 0
         }
         else {
             if let meterValue = FilterHelper.filterParameters[DISTANCE_FILTER] {
-                if cell.distanceObject["code"] == meterValue {
+                if cell.cellObject["code"] == meterValue {
                     cell.selectionLabel.text = "✔︎"
                     cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
                     cell.selectionLabel.textColor = UIColor.cyan
@@ -123,19 +123,19 @@ class FilterTableViewController: UITableViewController, SwitchCellDelegate {
     }
     
     func getSortByCell(_ tableView: UITableView, indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SortByCell", for: indexPath) as! SortByTableViewCell
-        cell.sortByObject = sortBy[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExpandCell", for: indexPath) as! ExpandTableViewCell
+        cell.cellObject = sortBy[indexPath.row]
         if isSortByOpen == false && indexPath.row == 0 {
             let obj_ = FilterHelper.getSelectedSortCriteria()
             if obj_ != nil {
-                cell.sortByObject = obj_!
+                cell.cellObject = obj_!
             }
             cell.selectionLabel.text = "▼"
             cell.selectionLabel.layer.borderWidth = 0
         }
         else {
             if let meterValue = FilterHelper.filterParameters[SORT_FILTER] {
-                if cell.sortByObject["code"] == meterValue {
+                if cell.cellObject["code"] == meterValue {
                     cell.selectionLabel.text = "✔︎"
                     cell.selectionLabel.layer.borderColor = UIColor.cyan.cgColor
                     cell.selectionLabel.textColor = UIColor.cyan
@@ -247,16 +247,6 @@ class FilterTableViewController: UITableViewController, SwitchCellDelegate {
         }
     }
     
-    /*func isCategorySwitchOn(flag : Bool, categoryObject: Dictionary<String, String>) {
-        
-        if flag == true {
-            FilterHelper.addToFilterCategories(categoryObject["code"]!)
-        }
-        else {
-            FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
-        }
-    }*/
-    
     func addRemoveDealsFilter(flag : Bool, object: Dictionary<String, String>) {
         if flag == true {
             FilterHelper.filterParameters[DEAL_FILTER] = "true"
@@ -272,7 +262,6 @@ class FilterTableViewController: UITableViewController, SwitchCellDelegate {
             FilterHelper.addToFilterCategories(categoryObject["code"]!)
         }
         else {
-            //FilterHelper.filterParameters.removeValue(forKey: CATEGORY_FILTER)
             FilterHelper.removeFromFilterCategories(categoryObject["code"]!)
         }
     }

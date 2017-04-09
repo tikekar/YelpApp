@@ -10,9 +10,23 @@ import UIKit
 
 class ExpandTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var nameLabel: UILabel!
+    
+    @IBOutlet weak var selectionLabel: UILabel!
+    
+    var cellObject : Dictionary<String, String> = [:] {
+        didSet {
+            nameLabel.text = cellObject["name"]
+            selectionLabel.text = ""
+            selectionLabel.layer.borderWidth = 1
+            selectionLabel.layer.borderColor = UIColor.lightGray.cgColor
+            selectionLabel.textColor = UIColor.darkGray
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        selectionLabel.layer.cornerRadius = selectionLabel.frame.size.width/2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

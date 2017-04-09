@@ -204,7 +204,7 @@
                                     <outlet property="nameLabel" destination="5yW-mz-ucB" id="3VQ-Ai-xZe"/>
                                 </connections>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DistanceCell" rowHeight="50" id="mn8-X0-RIT" customClass="DistancesTableViewCell" customModule="Yelp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ExpandCell" rowHeight="50" id="mn8-X0-RIT" customClass="ExpandTableViewCell" customModule="Yelp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="105.5" width="375" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mn8-X0-RIT" id="6lH-i1-Qtk">
@@ -236,44 +236,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="distanceLabel" destination="Whn-Pq-Hkk" id="zGu-UF-kVS"/>
-                                    <outlet property="selectionLabel" destination="FzV-BK-4q3" id="Kgw-40-mLp"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SortByCell" rowHeight="50" id="abx-tt-QpI" customClass="SortByTableViewCell" customModule="Yelp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="155.5" width="375" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="abx-tt-QpI" id="duB-5t-GcK">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="49.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Auto" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0mX-uQ-JcD">
-                                            <rect key="frame" x="15" y="14.5" width="34" height="20"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="▼" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hqv-JK-0k0">
-                                            <rect key="frame" x="324" y="10" width="30" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="69x-oJ-UtX"/>
-                                                <constraint firstAttribute="height" constant="30" id="Nih-2o-jdC"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="0mX-uQ-JcD" firstAttribute="leading" secondItem="duB-5t-GcK" secondAttribute="leading" constant="15" id="9JW-Kc-zF9"/>
-                                        <constraint firstItem="Hqv-JK-0k0" firstAttribute="centerY" secondItem="duB-5t-GcK" secondAttribute="centerY" id="b7p-vp-FLL"/>
-                                        <constraint firstItem="0mX-uQ-JcD" firstAttribute="centerY" secondItem="duB-5t-GcK" secondAttribute="centerY" id="f7P-9p-5uK"/>
-                                        <constraint firstAttribute="trailing" secondItem="Hqv-JK-0k0" secondAttribute="trailing" constant="21" id="iLi-Pz-IcM"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="selectionLabel" destination="Hqv-JK-0k0" id="8Ni-WD-BKn"/>
-                                    <outlet property="sortByLabel" destination="0mX-uQ-JcD" id="qjK-CR-33F"/>
+                                    <outlet property="nameLabel" destination="Whn-Pq-Hkk" id="YCu-vX-ibI"/>
+                                    <outlet property="selectionLabel" destination="FzV-BK-4q3" id="K3R-uB-zZB"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

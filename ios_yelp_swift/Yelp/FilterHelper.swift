@@ -191,7 +191,7 @@ class FilterHelper: NSObject {
     
     static let filterSortBy: [Dictionary<String, String>] = [["name" : "Best Match", "code": "0"],["name" : "Distance", "code": "1"], ["name" : "Rating", "code": "2"], ["name" : "Most Reviewed", "code": "3"]]
     
-    static let filterDistances = [["name" : "Auto", "code" : "auto"], ["name" : "0.3 Mile", "code" : "482"], ["name" : "1 Mile", "code" : "1609"], ["name" : "5 Miles", "code": "8046"], ["name" : "20 Miles", "code" : "32186"]]
+    static let filterDistances = [["name" : "Auto", "code" : "0"], ["name" : "0.3 Mile", "code" : "482"], ["name" : "1 Mile", "code" : "1609"], ["name" : "5 Miles", "code": "8046"], ["name" : "20 Miles", "code" : "32186"]]
     
     static let deals: [Dictionary<String, String>] = [["name" : "Offering Deals", "code": "true"]]
     
