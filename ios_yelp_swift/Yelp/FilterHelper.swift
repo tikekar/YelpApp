@@ -53,7 +53,7 @@ class FilterHelper: NSObject {
     ["name" : "Cafeteria", "code": "cafeteria"],
     ["name" : "Cajun/Creole", "code": "cajun"],
     ["name" : "Cambodian", "code": "cambodian"],
-    ["name" : "Canadian", "code": "New)"],
+    ["name" : "Canadian", "code": "canadian"],
     ["name" : "Canteen", "code": "canteen"],
     ["name" : "Caribbean", "code": "caribbean"],
     ["name" : "Catalan", "code": "catalan"],
